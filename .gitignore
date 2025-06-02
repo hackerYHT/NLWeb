@@ -13,6 +13,9 @@ myenv
 venv
 
 
+
+
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -435,3 +438,4 @@ static/.DS_Store
 
 \#README.md\#
 myenv/
+code/qdrant_setup/qdrant_storage/*

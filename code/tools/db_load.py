@@ -763,6 +763,12 @@ async def loadJsonToDB(file_path: str, site: str, batch_size: int = 100, delete_
         provider_config = CONFIG.get_embedding_provider(provider)
         model = provider_config.model if provider_config else None
         
+        import os
+        # 获取环境变量OPENAI_EMBEDDING_ENDPOINT的值
+        embedding_endpoint = os.getenv('OPENAI_EMBEDDING_ENDPOINT')
+        # 打印环境变量及其值
+        print(f"The value of OPENAI_EMBEDDING_ENDPOINT is: {embedding_endpoint}")
+        
         print(f"Using embedding provider: {provider}, model: {model}")
         
         # Initialize documents list

@@ -3,7 +3,7 @@ preferred_provider: openai
 providers:
   openai:
     api_key_env: OPENAI_API_KEY
-    api_endpoint_env: OPENAI_ENDPOINT
+    api_endpoint_env: OPENAI_EMBEDDING_ENDPOINT
     model: text-embedding-3-small
 
   gemini:
