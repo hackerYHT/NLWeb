@@ -15,6 +15,7 @@ import sys
 import time
 import traceback
 import urllib.parse
+from core.agent_handler import handle_agent_request
 from core.whoHandler import WhoHandler
 from core.mcp_handler import handle_mcp_request
 from utils.utils import get_param
@@ -361,6 +362,13 @@ async def fulfill_request(method, path, headers, query_params, body, send_respon
             logger.info(f"Routing to MCP handler (streaming={use_streaming})")
             await handle_mcp_request(query_params, body, send_response, send_chunk, streaming=use_streaming)
             return
+        elif (path.find("nlweb") != -1):
+            # Handle NLWeb Agent health check
+            if path == "/nlweb/query":
+                logger.info(f"Routing to NLWeb Agent handler ")
+                await handle_agent_request(query_params, body, send_response, send_chunk)
+                return
+            
         elif (path.find("ask") != -1):
             # Handle site parameter validation for ask endpoint
             validated_query_params = handle_site_parameter(query_params)
