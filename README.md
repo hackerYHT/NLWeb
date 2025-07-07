@@ -97,7 +97,7 @@ This project may contain trademarks or logos for projects, products, or services
 ### 使用命令
 ```shesll
 cd code
-python -m tools.db_load http://localhost:8080/schema.jsonl SensitiveFieldManage --batch-size 10
-python -m tools.db_load ../demo/site/schema.jsonl SensitiveFieldManage --batch-size 10
+python -m tools.db_load http://localhost:8080/emadmin_schema.jsonl emadmin.ppdaicorp.com --batch-size 10
+python -m tools.db_load ../demo/site/emadmin_schema.jsonl emadmin.ppdaicorp.com --batch-size 10
 python app-file.py 
 ```
