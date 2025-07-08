@@ -1,0 +1,40 @@
+@startuml
+autonumber
+
+participant 用户
+participant nlweb_dashboard
+participant nlweb_api
+participant 数据库
+
+== 创建 MCP Server ==
+用户 -> nlweb_dashboard: 创建 mcp_server（填写名称、上传代码文件）
+nlweb_dashboard -> 数据库: 存储 mcp_server 信息及代码文件
+数据库 --> nlweb_dashboard: 返回存储状态
+nlweb_dashboard --> 用户: 显示创建成功
+
+== 创建 MCP Tools ==
+用户 -> nlweb_dashboard: 新建 mcp_tools（选择模板，填写请求头、体、方法等）
+nlweb_dashboard -> 数据库: 存储 mcp_tools 配置，并关联到指定 mcp_server
+数据库 --> nlweb_dashboard: 返回存储状态
+nlweb_dashboard --> 用户: 显示工具已关联
+
+== 安装 MCP Server ==
+用户 -> nlweb_dashboard: 安装 mcp_server
+nlweb_dashboard -> 数据库: 查询 mcp_server 的代码及其关联的 mcp_tools
+数据库 --> nlweb_dashboard: 返回代码内容
+nlweb_dashboard -> nlweb_dashboard: 拼接 mcp_server 与 tools 代码
+nlweb_dashboard -> nlweb_api: 调用接口部署 mcp_server 到应用程序内存
+nlweb_api -> nlweb_api: 加载并运行拼接后的 mcp_server 实例
+nlweb_api --> nlweb_dashboard: 返回部署状态
+nlweb_dashboard --> 用户: 显示 mcp_server 已安装
+
+== 安装 MCP Tools ==
+用户 -> nlweb_dashboard: 安装 mcp_tools（更新现有 mcp_server）
+nlweb_dashboard -> 数据库: 更新 mcp_tools 配置信息
+数据库 --> nlweb_dashboard: 返回更新状态
+nlweb_dashboard -> nlweb_api: 调用接口热更新对应的 mcp_server 实例
+nlweb_api -> nlweb_api: 替换或新增对应工具逻辑
+nlweb_api --> nlweb_dashboard: 返回更新状态
+nlweb_dashboard --> 用户: 显示 mcp_tools 已更新
+
+@enduml
